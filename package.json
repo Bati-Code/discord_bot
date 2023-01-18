@@ -15,6 +15,9 @@
   "dependencies": {
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
-    "nodemon": "^2.0.20"
+    "mariadb": "^3.0.2",
+    "moment": "^2.29.4",
+    "nodemon": "^2.0.20",
+    "sequelize": "^6.28.0"
   }
 }
