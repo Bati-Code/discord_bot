@@ -33,6 +33,11 @@ module.exports = (sequelize, DataTypes) => {
       sourceKey: 'id',
       as: 'attend',
     });
+    user.hasOne(models.Playtime, {
+      foreignKey: 'id',
+      sourceKey: 'id',
+      as: 'playtime',
+    });
   };
 
   return user;
