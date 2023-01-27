@@ -6,6 +6,7 @@ module.exports = {
   async execute(interaction) {
     let message = '';
     if (interaction.user) {
+      console.log(interaction);
       const [user, created] = await User.findOrCreate({
         where: { id: interaction.user.id },
         defaults: {

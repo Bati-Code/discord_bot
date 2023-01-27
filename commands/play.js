@@ -19,9 +19,11 @@ const getPlayTimeQuery = async id => {
     const result = await Playtime.findOne({
       where: { id: id, createdAt: { [Op.gte]: today } },
     });
+
+    console.log(result);
     currentTime = new Date(new Date() - result.enter);
 
-    if (currentTime.getTime() > new Date(result.time).getTime()) {
+    if (result.check == 0) {
       currentTime = '공부방 접속 후 측정을 시작합니다 :)';
     } else {
       currentTime = moment(new Date(currentTime)).utcOffset(0).format('HH시간 mm분 ss초');
@@ -54,6 +56,8 @@ module.exports = {
       }
     }
 
+    console.log(interaction.channelId);
+
     const avatarURL = interaction.user.displayAvatarURL({
       size: 4096,
       dynamic: true,
@@ -73,7 +77,7 @@ module.exports = {
         // { name: 'Inline field title', value: 'Some value here', inline: true }
       )
       // .addFields({ name: 'Inline field title', value: 'Some value here', inline: true })
-      .setImage(avatarURL)
+      // .setImage(avatarURL)
       .setTimestamp();
     // .setFooter({ text: 'Some footer text here', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
 
