@@ -4,17 +4,21 @@ const { Op } = require('sequelize');
 const moment = require('moment/moment');
 
 const userStack = [];
-const channelName = 'Test';
+const channelName = '공부방';
 const eventVoiceChannel = process.env.TEST_CHANNEL_ID;
 const sendChannel = process.env.TEST_TEXT_CHANNEL;
 
 module.exports = {
   name: Events.VoiceStateUpdate,
   async execute(oldState, newState) {
+    console.log('A_______________________________________________A');
+    // console.log('OLD : ', oldState);
+    // console.log('NEW : ', newState);
     oldState.guild.channels
       .fetch(oldState.channelId)
       .then(channel => {
-        if (channel.id != eventVoiceChannel) return;
+        console.log('OLDNAME :', channel.name);
+        if (channel.id != eventVoiceChannel || newState.channelId == eventVoiceChannel) return;
         const findUserIndex = userStack.findIndex(e => e.id == oldState.id);
 
         if (findUserIndex == -1) return;
@@ -40,7 +44,8 @@ module.exports = {
     newState.guild.channels
       .fetch(newState.channelId)
       .then(channel => {
-        if (channel.id != eventVoiceChannel) return;
+        console.log('NEWNAME:', channel.name);
+        if (channel.id != eventVoiceChannel || oldState.channelId == eventVoiceChannel) return;
         newState.client.channels.cache.get(sendChannel).send(`반가워요 ${newState.member.user.username} 친구 :)`);
         const findUserIndex = userStack.findIndex(e => e.id == newState.id);
         if (findUserIndex != -1) {
