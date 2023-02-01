@@ -16,11 +16,11 @@ const attendQuery = async id => {
       where: { id: id, date: { [Op.gte]: attendDate } },
       defaults: {
         id: id,
-        date: moment(),
+        date: new Date(),
       },
     });
     if (created) {
-      message = `${moment(attend.date).format('YYYY-MM-DD HH:mm:ss')}`;
+      message = `${moment(attend.date).utcOffset(9).format('YYYY-MM-DD HH:mm:ss')}`;
     } else {
       message = '오늘은 이미 출석 체크 했어요 :)';
     }

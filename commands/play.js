@@ -20,7 +20,11 @@ const getPlayTimeQuery = async id => {
       where: { id: id, createdAt: { [Op.gte]: today } },
     });
 
-    console.log(result);
+    if (result == null) {
+      message = '공부방에 아직 접속하지 않았네요 :)';
+      return;
+    }
+
     currentTime = new Date(new Date() - result.enter);
 
     if (result.check == 0) {
@@ -56,8 +60,6 @@ module.exports = {
       }
     }
 
-    console.log(interaction.channelId);
-
     const avatarURL = interaction.user.displayAvatarURL({
       size: 4096,
       dynamic: true,
@@ -86,6 +88,6 @@ module.exports = {
       .then(channel => channel.send({ embeds: [exampleEmbed] }))
       .catch(console.error);
 
-    await interaction.reply('출석 체크');
+    await interaction.reply('시간 조회');
   },
 };

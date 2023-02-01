@@ -5,13 +5,14 @@ const moment = require('moment/moment');
 
 const userStack = [];
 const channelName = '공부방';
-const eventVoiceChannel = process.env.TEST_CHANNEL_ID;
-const sendChannel = process.env.TEST_TEXT_CHANNEL;
+const eventVoiceChannel = process.env.REAL_CHANNEL_ID;
+const sendChannel = process.env.REAL_TEXT_CHANNEL;
 
 module.exports = {
   name: Events.VoiceStateUpdate,
   async execute(oldState, newState) {
     console.log('A_______________________________________________A');
+    console.log(moment().utcOffset(9).format('YYYY-MM-DD HH:mm:ss'));
     // console.log('OLD : ', oldState);
     // console.log('NEW : ', newState);
     oldState.guild.channels
