@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon -r dotenv/config index.js",
-    "build": "pm2 start --node-args='-r dotenv/config' index.js",
+    "build": "pm2 start --name discord_bot --node-args='-r dotenv/config' index.js",
+    "restart": "npx pm2 delete discord_bot &&npm run build",
     "test": "nodemon -r dotenv/config index.js dotenv_config_path=test.env dotenv_config_debug=true",
     "commands": "node -r dotenv/config deploy-commands.js",
     "commands-test": "node -r dotenv/config deploy-commands.js dotenv_config_path=test.env dotenv_config_debug=true"

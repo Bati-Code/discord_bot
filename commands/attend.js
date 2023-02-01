@@ -3,8 +3,13 @@ const { User, Attend } = require('../models');
 const { Op } = require('sequelize');
 const moment = require('moment/moment');
 
-const attendDate = new Date();
-attendDate.setHours(5, 0, 0, 0);
+const offsetTime = moment().utcOffset(9);
+offsetTime.hour(5).minute(0).second(0);
+const attendDate = offsetTime.utcOffset(0);
+const nowDate = moment().utcOffset(0);
+
+console.log('A : ', attendDate);
+console.log('B : ', nowDate);
 let title = '출석 체크';
 let message = '';
 let totalCount = 0;
@@ -12,11 +17,13 @@ let recentCount = 0;
 
 const attendQuery = async id => {
   try {
+    console.log('출석체크-------------------------------------------------');
+    console.log(attendDate, nowDate);
     const [attend, created] = await Attend.findOrCreate({
       where: { id: id, date: { [Op.gte]: attendDate } },
       defaults: {
         id: id,
-        date: new Date(),
+        date: nowDate,
       },
     });
     if (created) {

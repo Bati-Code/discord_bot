@@ -35,7 +35,7 @@ module.exports = {
             .get(sendChannel)
             .send(
               `아 ${moment(diffDate).utcOffset(0).format('HH시간 mm분 ss초')}있었네... 그런데 ${
-                newState.member.user.username
+                oldState.member.user.username
               } 벌써 가려고..?`
             );
           UpdatePlayTime(oldState.id, diffDate.getTime());
@@ -91,6 +91,10 @@ const EnterVoiceChannel = async (id, userId, userName) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+const FindPlayTime = async (id, time) => {
+
 };
 
 const UpdatePlayTime = async (id, time) => {
